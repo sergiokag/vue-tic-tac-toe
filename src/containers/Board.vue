@@ -91,8 +91,12 @@ export default {
     playerName() {
       return this.winner && this.winner === "X"
         ? this.player1
+          ? this.player1
+          : "Player 1"
         : this.winner === "O"
         ? this.player2
+          ? this.player2
+          : "Player 2"
         : "Draw";
     },
   },

@@ -1,5 +1,7 @@
 <template>
-  <div class="box" @click="onSettingValue(value, index)">{{ value }}</div>
+  <div class="box" @click="onSettingValue(value, index)">
+    {{ value }}
+  </div>
 </template>
 
 <script>
