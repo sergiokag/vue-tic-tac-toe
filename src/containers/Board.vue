@@ -1,5 +1,13 @@
 <template>
-  <p class="text-center">Next player: {{ xIsNext ? "X" : "O" }}</p>
+  <!-- Messages -->
+  <div class="message-container">
+    <p class="text-center" v-if="!winner">
+      Next player: {{ xIsNext ? "X" : "O" }}
+    </p>
+    <p class="text-center" v-else>Winner: {{ winner }}</p>
+  </div>
+
+  <!-- Squares -->
   <div class="board-container">
     <Square
       v-for="(square, i) in squares"
@@ -9,10 +17,18 @@
       @value-changed="onValueChange($event)"
     ></Square>
   </div>
+
+  <!-- Game restart button -->
+  <div class="button-container text-center">
+    <button class="btn" @click="onGameRestart" :disabled="!winner">
+      Restart
+    </button>
+  </div>
 </template>
 
 <script>
 import Square from "../components/Square";
+import GameProcessor from "../utils/GameProcessor";
 
 export default {
   name: "Board",
@@ -23,11 +39,12 @@ export default {
     return {
       squares: Array(9).fill(null),
       xIsNext: true,
+      winner: null,
     };
   },
   methods: {
     onValueChange(data) {
-      if (data.value) {
+      if (data.value || this.winner) {
         return;
       }
 
@@ -39,12 +56,20 @@ export default {
         return s;
       });
 
-      // Switching player boolean flag
-      if (!data.value) {
-        this.xIsNext = !this.xIsNext;
+      // Checking for winner
+      const winner = GameProcessor.calculateWinner(this.squares);
+      if (winner) {
+        this.winner = winner;
+        return;
       }
 
-      console.log({ data, squares: this.squares });
+      // Switching player boolean flag
+      this.xIsNext = !this.xIsNext;
+    },
+    onGameRestart() {
+      this.squares = Array(9).fill(null);
+      this.xIsNext = true;
+      this.winner = null;
     },
   },
 };
@@ -55,6 +80,20 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.button-container {
+  margin: 50px 0;
+}
+
+.btn {
+  font-size: 30px;
+  padding: 15px;
+}
+
+.message-container {
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .text-center {
