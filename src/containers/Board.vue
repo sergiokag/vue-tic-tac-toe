@@ -2,7 +2,7 @@
   <!-- Messages -->
   <div class="message-container">
     <p class="text-center" v-if="!winner">
-      Next player: {{ xIsNext ? "X" : "O" }}
+      Next player: {{ xIsNext ? player1 || "Player 1" : player2 || "Player 2" }}
     </p>
     <p class="text-center" v-else>Winner: {{ playerName }}</p>
   </div>
@@ -21,12 +21,12 @@
   <!-- Players -->
   <div class="row">
     <label for="player1">Player1</label>
-    <input type="text" id="player1" v-model="player1" />
+    <input type="text" id="player1" v-model.lazy="player1" />
   </div>
 
   <div class="row">
     <label for="player2">Player2</label>
-    <input type="text" id="player2" v-model="player2" />
+    <input type="text" id="player2" v-model.lazy="player2" />
   </div>
 
   <!-- Game restart button -->
@@ -68,7 +68,13 @@ export default {
         }
         return s;
       });
-
+      console.log({
+        squares: this.squares,
+        player1: this.player1,
+        player2: this.player2,
+        winner: this.winner,
+        xIsNext: this.xIsNext,
+      });
       // Checking for winner
       const winner = GameProcessor.calculateWinner(this.squares);
       if (winner) {
@@ -90,13 +96,9 @@ export default {
   computed: {
     playerName() {
       return this.winner && this.winner === "X"
-        ? this.player1
-          ? this.player1
-          : "Player 1"
+        ? this.player1 || "Player 1"
         : this.winner === "O"
-        ? this.player2
-          ? this.player2
-          : "Player 2"
+        ? this.player2 || "Player 2"
         : "Draw";
     },
   },
