@@ -4,7 +4,7 @@
     <p class="text-center" v-if="!winner">
       Next player: {{ xIsNext ? "X" : "O" }}
     </p>
-    <p class="text-center" v-else>Winner: {{ winner }}</p>
+    <p class="text-center" v-else>Winner: {{ playerName }}</p>
   </div>
 
   <!-- Squares -->
@@ -16,6 +16,17 @@
       :index="i"
       @value-changed="onValueChange($event)"
     ></Square>
+  </div>
+
+  <!-- Players -->
+  <div class="row">
+    <label for="player1">Player1</label>
+    <input type="text" id="player1" v-model="player1" />
+  </div>
+
+  <div class="row">
+    <label for="player2">Player2</label>
+    <input type="text" id="player2" v-model="player2" />
   </div>
 
   <!-- Game restart button -->
@@ -40,6 +51,8 @@ export default {
       squares: Array(9).fill(null),
       xIsNext: true,
       winner: null,
+      player1: null,
+      player2: null,
     };
   },
   methods: {
@@ -70,6 +83,17 @@ export default {
       this.squares = Array(9).fill(null);
       this.xIsNext = true;
       this.winner = null;
+      this.player1 = null;
+      this.player2 = null;
+    },
+  },
+  computed: {
+    playerName() {
+      return this.winner && this.winner === "X"
+        ? this.player1
+        : this.winner === "O"
+        ? this.player2
+        : "Draw";
     },
   },
 };
@@ -98,5 +122,16 @@ export default {
 
 .text-center {
   text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+.row input {
+  font-size: 20px;
 }
 </style>
