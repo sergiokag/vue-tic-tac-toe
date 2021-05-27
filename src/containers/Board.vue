@@ -1,10 +1,11 @@
 <template>
   <!-- Messages -->
-  <div class="message-container">
-    <p class="text-center" v-if="!winner">
+  <div class="message-container text-center">
+    <p v-if="!winner && isFullList">Draw</p>
+    <p v-else-if="!winner">
       Next player: {{ xIsNext ? player1 || "Player 1" : player2 || "Player 2" }}
     </p>
-    <p class="text-center" v-else>Winner: {{ playerName }}</p>
+    <p v-else>Winner: {{ playerName }}</p>
   </div>
 
   <!-- Squares -->
@@ -31,7 +32,7 @@
 
   <!-- Game restart button -->
   <div class="button-container text-center">
-    <button class="btn" @click="onGameRestart" :disabled="!winner">
+    <button class="btn" @click="onGameRestart" :disabled="isBtnDisabled">
       Restart
     </button>
   </div>
@@ -53,6 +54,7 @@ export default {
       winner: null,
       player1: null,
       player2: null,
+      isBtnDisabled: true,
     };
   },
   methods: {
@@ -68,17 +70,18 @@ export default {
         }
         return s;
       });
-      console.log({
-        squares: this.squares,
-        player1: this.player1,
-        player2: this.player2,
-        winner: this.winner,
-        xIsNext: this.xIsNext,
-      });
+
       // Checking for winner
       const winner = GameProcessor.calculateWinner(this.squares);
       if (winner) {
         this.winner = winner;
+        this.isBtnDisabled = false;
+        return;
+      }
+
+      // Checking if draw
+      if (!winner && this.isFullList) {
+        this.isBtnDisabled = false;
         return;
       }
 
@@ -91,6 +94,7 @@ export default {
       this.winner = null;
       this.player1 = null;
       this.player2 = null;
+      this.isBtnDisabled = true;
     },
   },
   computed: {
@@ -100,6 +104,9 @@ export default {
         : this.winner === "O"
         ? this.player2 || "Player 2"
         : "Draw";
+    },
+    isFullList() {
+      return this.squares.filter((s) => !!s).length === 9;
     },
   },
 };
