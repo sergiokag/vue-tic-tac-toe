@@ -1,5 +1,11 @@
 <template>
+  <!-- TODO: Refactor, Less Logic in View -->
+  <!-- TODO: Move css to central places -->
+  <!-- TODO: Add a Game container component and transfer the state -->
+  <!-- TODO: Add State Management -->
+
   <!-- Messages -->
+  <!-- TODO: Make a component with props-->
   <div class="message-container text-center">
     <p v-if="!winner && isFullList">Draw</p>
     <p v-else-if="!winner">
@@ -20,6 +26,7 @@
   </div>
 
   <!-- Players -->
+  <!-- TODO: Make a component with props-->
   <div class="row">
     <label for="player1">Player1</label>
     <input type="text" id="player1" v-model.lazy="player1" />
@@ -31,6 +38,7 @@
   </div>
 
   <!-- Game restart button -->
+  <!-- TODO: After restart return focus to the first square -->
   <div class="button-container text-center">
     <button class="btn" @click="onGameRestart" :disabled="isBtnDisabled">
       Restart
@@ -59,6 +67,7 @@ export default {
   },
   methods: {
     onValueChange(data) {
+      /* TODO: Shorten the body of this method*/
       if (data.value || this.winner) {
         return;
       }
