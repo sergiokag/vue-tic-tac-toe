@@ -1,16 +1,16 @@
 <template>
   <div class="site-container">
-    <Board></Board>
+    <Game />
   </div>
 </template>
 
 <script>
-import Board from "./containers/Board";
+import Game from "./components/Game/Game";
 
 export default {
   name: "App",
   components: {
-    Board,
+    Game,
   },
 };
 </script>

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import Square from "../components/Square";
-import GameProcessor from "../utils/GameProcessor";
+import Square from "../Square/Square";
+import GameProcessor from "../../utils/GameProcessor";
 
 export default {
   name: "Board",
