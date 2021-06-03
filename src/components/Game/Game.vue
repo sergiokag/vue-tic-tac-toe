@@ -2,16 +2,8 @@
   <div class="site-wrapper">
     <Status :message="message" />
     <Board :squares="squares" />
-    <!-- Players -->
-    <div class="row">
-      <label for="player1">Player1</label>
-      <input type="text" id="player1" v-model.lazy="player1" />
-    </div>
-
-    <div class="row">
-      <label for="player2">Player2</label>
-      <input type="text" id="player2" v-model.lazy="player2" />
-    </div>
+    <Player :id="'player1'" v-model="player1">Player1</Player>
+    <Player :id="'player2'" v-model="player2">Player2</Player>
 
     <div class="text-center">
       <Button :isBtnDisabled="isBtnDisabled" @btn-clicked="onGameRestart">
@@ -22,8 +14,12 @@
 </template>
 
 <script>
+// components
 import Board from "../Board/Board";
 import Button from "../Button/Button";
+import Player from "../Player/Player.vue";
+import Status from "../Status/Status.vue";
+
 import GameProcessor from "../../utils/GameProcessor";
 
 export default {
@@ -31,6 +27,8 @@ export default {
   components: {
     Board,
     Button,
+    Player,
+    Status,
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
@@ -122,16 +120,5 @@ export default {
 
 .text-center {
   text-align: center;
-}
-
-.row {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 10px 0;
-  font-size: 20px;
-}
-
-.row input {
-  font-size: 20px;
 }
 </style>
