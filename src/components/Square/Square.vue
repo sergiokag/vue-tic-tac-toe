@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     onSettingValue(value, index) {
-      this.$emit("value-changed", { value, index });
+      this.$bus.emit("value-changed", { value, index });
     },
   },
 };

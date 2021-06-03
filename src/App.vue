@@ -1,7 +1,5 @@
 <template>
-  <div class="site-container">
-    <Game />
-  </div>
+  <Game />
 </template>
 
 <script>
@@ -14,16 +12,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
-
-.site-container {
-  margin: 0 auto;
-  width: 500px;
-}
-</style>
