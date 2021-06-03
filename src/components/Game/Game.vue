@@ -1,13 +1,6 @@
 <template>
   <div class="site-wrapper">
-    <div class="message-container text-center">
-      <p v-if="!winner && isFullList">Draw</p>
-      <p v-else-if="!winner">
-        Next player:
-        {{ xIsNext ? player1 || "Player 1" : player2 || "Player 2" }}
-      </p>
-      <p v-else>Winner: {{ playerName }}</p>
-    </div>
+    <Status :message="message" />
     <Board :squares="squares" />
     <!-- Players -->
     <div class="row">
@@ -93,15 +86,28 @@ export default {
     },
   },
   computed: {
+    isFullList() {
+      return this.squares.filter((s) => !!s).length === 9;
+    },
+    message() {
+      if (!this.winner && this.isFullList) {
+        return "Draw";
+      }
+
+      if (!this.winner) {
+        return `Next player: ${
+          this.xIsNext ? this.player1 || "Player 1" : this.player2 || "Player 2"
+        }`;
+      }
+
+      return `Winner: ${this.playerName}`;
+    },
     playerName() {
       return this.winner && this.winner === "X"
         ? this.player1 || "Player 1"
         : this.winner === "O"
         ? this.player2 || "Player 2"
         : "Draw";
-    },
-    isFullList() {
-      return this.squares.filter((s) => !!s).length === 9;
     },
   },
 };
@@ -112,11 +118,6 @@ export default {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-}
-
-.message-container {
-  font-size: 30px;
-  font-weight: bold;
 }
 
 .text-center {
