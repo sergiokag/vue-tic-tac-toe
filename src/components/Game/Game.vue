@@ -20,23 +20,24 @@
       <input type="text" id="player2" v-model.lazy="player2" />
     </div>
 
-    <!-- Game restart button -->
-    <div class="button-container text-center">
-      <button class="btn" @click="onGameRestart" :disabled="isBtnDisabled">
+    <div class="text-center">
+      <Button :isBtnDisabled="isBtnDisabled" @btn-clicked="onGameRestart">
         Restart
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
 import Board from "../Board/Board";
+import Button from "../Button/Button";
 import GameProcessor from "../../utils/GameProcessor";
 
 export default {
   name: "Game",
   components: {
     Board,
+    Button,
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
@@ -111,14 +112,6 @@ export default {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-}
-.button-container {
-  margin: 50px 0;
-}
-
-.btn {
-  font-size: 30px;
-  padding: 15px;
 }
 
 .message-container {
