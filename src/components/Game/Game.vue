@@ -1,15 +1,17 @@
 <template>
-  <div class="site-wrapper">
-    <Status :message="message" />
-    <Board :squares="squares" />
-    <Player :id="'player1'" v-model="player1">Player1</Player>
-    <Player :id="'player2'" v-model="player2">Player2</Player>
-
-    <div class="text-center">
-      <Button :isBtnDisabled="isBtnDisabled" @btn-clicked="onGameRestart">
-        Restart
-      </Button>
+  <div class="site-wrapper grid">
+    <div class="grid-item">
+      <Status :message="message" />
+      <Board :squares="squares" />
+      <Player :id="'player1'" v-model="player1">Player1</Player>
+      <Player :id="'player2'" v-model="player2">Player2</Player>
+      <div class="text-center">
+        <Button :isBtnDisabled="isBtnDisabled" @btn-clicked="onGameRestart">
+          Restart
+        </Button>
+      </div>
     </div>
+    <div class="grid-item">History</div>
   </div>
 </template>
 
@@ -113,11 +115,14 @@ export default {
 
 <style scoped>
 .site-wrapper {
-  max-width: 500px;
+  max-width: 900px;
   width: 100%;
   margin: 0 auto;
 }
-
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
 .text-center {
   text-align: center;
 }
