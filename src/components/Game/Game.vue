@@ -11,7 +11,9 @@
         </Button>
       </div>
     </div>
-    <div class="grid-item">History</div>
+    <div class="grid-item">
+      <History :moves="['X']" @selected-move="onSelectedMove" />
+    </div>
   </div>
 </template>
 
@@ -19,8 +21,9 @@
 // components
 import Board from "../Board/Board";
 import Button from "../Button/Button";
-import Player from "../Player/Player.vue";
-import Status from "../Status/Status.vue";
+import Player from "../Player/Player";
+import Status from "../Status/Status";
+import History from "../History/History";
 
 import GameProcessor from "../../utils/GameProcessor";
 
@@ -31,6 +34,7 @@ export default {
     Button,
     Player,
     Status,
+    History,
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
@@ -83,6 +87,9 @@ export default {
       this.player1 = null;
       this.player2 = null;
       this.isBtnDisabled = true;
+    },
+    onSelectedMove($event) {
+      console.log("selected_move:", $event);
     },
   },
   computed: {
