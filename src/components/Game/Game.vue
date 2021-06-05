@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="grid-item">
-      <History :moves="['X']" @selected-move="onSelectedMove" />
+      <Moves :moves="history" @selected-move="onSelectedMove" />
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ import Board from "../Board/Board";
 import Button from "../Button/Button";
 import Player from "../Player/Player";
 import Status from "../Status/Status";
-import History from "../History/History";
+import Moves from "../Moves/Moves";
 
 import GameProcessor from "../../utils/GameProcessor";
 
@@ -34,14 +34,19 @@ export default {
     Button,
     Player,
     Status,
-    History,
+    Moves,
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
   },
   data() {
     return {
-      squares: Array(9).fill(null),
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      stepNumber: 0,
       xIsNext: true,
       winner: null,
       player1: null,
@@ -50,21 +55,30 @@ export default {
     };
   },
   methods: {
-    onValueChange(data) {
-      if (data.value || this.winner) {
+    onValueChange({ value, index }) {
+      if (value || this.winner) {
         return;
       }
 
+      const _history = this.history.slice(0, this.stepNumber + 1);
+      const _current = _history[_history.length - 1];
+      const _squares = _current.squares.slice();
+
+      _squares[index] = this.xIsNext ? "X" : "O";
+
       // Settinng new squares list
-      this.squares = this.squares.map((s, i) => {
-        if (data.index === i) {
-          return this.xIsNext ? "X" : "O";
-        }
-        return s;
-      });
+      this.history = _history.concat([
+        {
+          squares: _squares,
+        },
+      ]);
+
+      // Switching player boolean flag
+      this.xIsNext = !this.xIsNext;
+      this.stepNumber = this.history.length - 1;
 
       // Checking for winner
-      const winner = GameProcessor.calculateWinner(this.squares);
+      const winner = GameProcessor.calculateWinner(_squares);
       if (winner) {
         this.winner = winner;
         this.isBtnDisabled = false;
@@ -76,23 +90,39 @@ export default {
         this.isBtnDisabled = false;
         return;
       }
-
-      // Switching player boolean flag
-      this.xIsNext = !this.xIsNext;
     },
     onGameRestart() {
-      this.squares = Array(9).fill(null);
+      this.history = [
+        {
+          squares: Array(9).fill(null),
+        },
+      ];
       this.xIsNext = true;
+      this.stepNumber = 0;
       this.winner = null;
       this.player1 = null;
       this.player2 = null;
       this.isBtnDisabled = true;
     },
-    onSelectedMove($event) {
-      console.log("selected_move:", $event);
+    onSelectedMove(step) {
+      this.stepNumber = step;
+      this.xIsNext = step % 2 === 0;
+      // Checking for winner
+      const winner = GameProcessor.calculateWinner(this.squares);
+      if (winner) {
+        this.winner = winner;
+        this.isBtnDisabled = false;
+        return;
+      }
+      this.winner = null;
+      this.isBtnDisabled = true;
     },
   },
   computed: {
+    squares() {
+      const _history = this.history.slice();
+      return _history[this.stepNumber].squares;
+    },
     isFullList() {
       return this.squares.filter((s) => !!s).length === 9;
     },
@@ -114,7 +144,7 @@ export default {
         ? this.player1 || "Player 1"
         : this.winner === "O"
         ? this.player2 || "Player 2"
-        : "Draw";
+        : "";
     },
   },
 };
