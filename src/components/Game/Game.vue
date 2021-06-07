@@ -67,11 +67,12 @@ export default {
       _squares[index] = this.xIsNext ? "X" : "O";
 
       // Settinng new squares list
-      this.history = _history.concat([
+      this.history = [
+        ..._history,
         {
           squares: _squares,
         },
-      ]);
+      ];
 
       // Switching player boolean flag
       this.xIsNext = !this.xIsNext;
@@ -120,11 +121,10 @@ export default {
   },
   computed: {
     squares() {
-      const _history = this.history.slice();
-      return _history[this.stepNumber].squares;
+      return this.history[this.stepNumber].squares;
     },
     isFullList() {
-      return this.squares.filter((s) => !!s).length === 9;
+      return this.squares.filter((square) => !!square).length === 9;
     },
     message() {
       if (!this.winner && this.isFullList) {
