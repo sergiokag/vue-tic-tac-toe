@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
-    console.log(this.getHistory);
   },
   data() {
     return {

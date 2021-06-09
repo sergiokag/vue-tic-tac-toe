@@ -15,6 +15,7 @@ class GameFacadeClass {
         return this.store.getters.squares$$;
     }
 
+    // TODO: MORE REFACTOR: MOVE IT TO MUTATIONS 
     play({ value, index }) {
         if (value || this.store.state.winner) {
             return;
