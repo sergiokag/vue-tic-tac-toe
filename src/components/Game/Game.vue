@@ -26,6 +26,7 @@ import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
 import GameProcessor from "../../utils/GameProcessor";
+import { GameFacade } from "../../models/game/game.facade";
 
 export default {
   name: "Game",
@@ -38,14 +39,10 @@ export default {
   },
   mounted() {
     this.$bus.on("value-changed", (data) => this.onValueChange(data));
+    console.log(this.getHistory);
   },
   data() {
     return {
-      history: [
-        {
-          squares: Array(9).fill(null),
-        },
-      ],
       stepNumber: 0,
       xIsNext: true,
       winner: null,
@@ -56,41 +53,7 @@ export default {
   },
   methods: {
     onValueChange({ value, index }) {
-      if (value || this.winner) {
-        return;
-      }
-
-      const _history = this.history.slice(0, this.stepNumber + 1);
-      const _current = _history[_history.length - 1];
-      const _squares = _current.squares.slice();
-
-      _squares[index] = this.xIsNext ? "X" : "O";
-
-      // Settinng new squares list
-      this.history = [
-        ..._history,
-        {
-          squares: _squares,
-        },
-      ];
-
-      // Switching player boolean flag
-      this.xIsNext = !this.xIsNext;
-      this.stepNumber = this.history.length - 1;
-
-      // Checking for winner
-      const winner = GameProcessor.calculateWinner(_squares);
-      if (winner) {
-        this.winner = winner;
-        this.isBtnDisabled = false;
-        return;
-      }
-
-      // Checking if draw
-      if (!winner && this.isFullList) {
-        this.isBtnDisabled = false;
-        return;
-      }
+      GameFacade.play({ value, index });
     },
     onGameRestart() {
       this.history = [
@@ -120,8 +83,11 @@ export default {
     },
   },
   computed: {
+    history() {
+      return GameFacade.history$$();
+    },
     squares() {
-      return this.history[this.stepNumber].squares;
+      return GameFacade.squares$$();
     },
     isFullList() {
       return this.squares.filter((square) => !!square).length === 9;
