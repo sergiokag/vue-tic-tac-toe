@@ -26,6 +26,16 @@ const initStore = () => {
             selectMove(state, payload) {
                 state.stepNumber = payload;
                 state.xIsNext = payload % 2 === 0;
+            },
+            restart(state) {
+                state.history = [
+                    {
+                        squares: Array(9).fill(null),
+                    },
+                ];
+                state.xIsNext = true;
+                state.stepNumber = 0;
+                state.winner = null;
             }
         },
         getters: {

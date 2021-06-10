@@ -50,22 +50,21 @@ export default {
   methods: {
     onValueChange({ value, index }) {
       GameFacade.play({ value, index });
+      if (this.winner || this.message === "Draw") {
+        this.isBtnDisabled = false;
+      }
     },
     onGameRestart() {
-      this.history = [
-        {
-          squares: Array(9).fill(null),
-        },
-      ];
-      this.xIsNext = true;
-      this.stepNumber = 0;
-      this.winner = null;
+      GameFacade.restart();
       this.player1 = null;
       this.player2 = null;
       this.isBtnDisabled = true;
     },
     onSelectedMove(step) {
       GameFacade.selectMove(step);
+      if (this.winner) {
+        this.isBtnDisabled = false;
+      }
     },
   },
   computed: {

@@ -67,6 +67,10 @@ class GameFacadeClass {
         }
         this.store.commit('setWinner', null);
     }
+
+    restart() {
+        this.store.commit('restart');
+    }
 }
 
 export const GameFacade = new GameFacadeClass(store);
