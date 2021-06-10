@@ -15,7 +15,14 @@ class GameFacadeClass {
         return this.store.getters.squares$$;
     }
 
-    // TODO: MORE REFACTOR: MOVE IT TO MUTATIONS 
+    winner$$() {
+        return this.store.getters.winner$$;
+    }
+
+    xIsNext$$() {
+        return this.store.getters.xIsNext$$;
+    }
+
     play({ value, index }) {
         if (value || this.store.state.winner) {
             return;
@@ -28,21 +35,14 @@ class GameFacadeClass {
         _squares[index] = this.store.state.xIsNext ? "X" : "O";
 
         // Settinng new squares list
-        this.store.state.history = [
-            ..._history,
-            {
-                squares: _squares,
-            },
-        ];
-
-        // Switching player boolean flag
-        this.store.state.xIsNext = !this.store.state.xIsNext;
-        this.store.state.stepNumber = this.store.state.history.length - 1;
+        this.store.commit('play', {
+            squares: _squares,
+        });
 
         // Checking for winner
         const winner = GameProcessor.calculateWinner(_squares);
         if (winner) {
-            this.store.state.winner = winner;
+            this.store.commit('setWinner', winner);
             return;
         }
     }

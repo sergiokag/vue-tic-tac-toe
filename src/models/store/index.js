@@ -20,6 +20,13 @@ const initStore = () => {
                     ...state.history,
                     payload
                 ];
+
+                // Switching player boolean flag
+                state.xIsNext = !state.xIsNext;
+                state.stepNumber = state.history.length - 1;
+            },
+            setWinner(state, payload) {
+                state.winner = payload;
             }
         },
         actions: {
@@ -30,6 +37,8 @@ const initStore = () => {
         getters: {
             history$$: state => state.history,
             squares$$: state => state.history[state.stepNumber].squares,
+            winner$$: state => state.winner,
+            xIsNext$$: state => state.xIsNext,
         }
     });
 };

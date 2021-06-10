@@ -43,8 +43,6 @@ export default {
   data() {
     return {
       stepNumber: 0,
-      xIsNext: true,
-      winner: null,
       player1: null,
       player2: null,
       isBtnDisabled: true,
@@ -90,6 +88,12 @@ export default {
     },
     isFullList() {
       return this.squares.filter((square) => !!square).length === 9;
+    },
+    winner() {
+      return GameFacade.winner$$();
+    },
+    xIsNext() {
+      return GameFacade.xIsNext$$();
     },
     message() {
       if (!this.winner && this.isFullList) {
