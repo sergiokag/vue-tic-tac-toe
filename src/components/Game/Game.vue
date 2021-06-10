@@ -25,7 +25,6 @@ import Player from "../Player/Player";
 import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
-import GameProcessor from "../../utils/GameProcessor";
 import { GameFacade } from "../../models/game/game.facade";
 
 export default {
@@ -66,17 +65,7 @@ export default {
       this.isBtnDisabled = true;
     },
     onSelectedMove(step) {
-      this.stepNumber = step;
-      this.xIsNext = step % 2 === 0;
-      // Checking for winner
-      const winner = GameProcessor.calculateWinner(this.squares);
-      if (winner) {
-        this.winner = winner;
-        this.isBtnDisabled = false;
-        return;
-      }
-      this.winner = null;
-      this.isBtnDisabled = true;
+      GameFacade.selectMove(step);
     },
   },
   computed: {

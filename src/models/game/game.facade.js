@@ -35,9 +35,12 @@ class GameFacadeClass {
         _squares[index] = this.store.state.xIsNext ? "X" : "O";
 
         // Settinng new squares list
-        this.store.commit('play', {
-            squares: _squares,
-        });
+        this.store.commit('play', [
+            ..._history,
+            {
+                squares: _squares,
+            },
+        ]);
 
         // Checking for winner
         const winner = GameProcessor.calculateWinner(_squares);
@@ -45,6 +48,24 @@ class GameFacadeClass {
             this.store.commit('setWinner', winner);
             return;
         }
+    }
+
+    selectMove(step) {
+
+        this.store.commit('selectMove', step);
+
+        // TODO: REFACTOR DUPLICATE CODE: LINE (31)
+        const _history = this.store.state.history.slice(0, this.store.state.stepNumber + 1);
+        const _current = _history[_history.length - 1];
+        const _squares = _current.squares.slice();
+
+        // Checking for winner
+        const winner = GameProcessor.calculateWinner(_squares);
+        if (winner) {
+            this.store.commit('setWinner', winner);
+            return;
+        }
+        this.store.commit('setWinner', null);
     }
 }
 

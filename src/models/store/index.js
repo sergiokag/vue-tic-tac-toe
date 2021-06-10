@@ -16,22 +16,16 @@ const initStore = () => {
         state: initialState,
         mutations: {
             play(state, payload) {
-                state.history = [
-                    ...state.history,
-                    payload
-                ];
-
-                // Switching player boolean flag
+                state.history = payload;
                 state.xIsNext = !state.xIsNext;
                 state.stepNumber = state.history.length - 1;
             },
             setWinner(state, payload) {
                 state.winner = payload;
-            }
-        },
-        actions: {
-            play(context, payload) {
-                context.commit('play', payload);
+            },
+            selectMove(state, payload) {
+                state.stepNumber = payload;
+                state.xIsNext = payload % 2 === 0;
             }
         },
         getters: {
