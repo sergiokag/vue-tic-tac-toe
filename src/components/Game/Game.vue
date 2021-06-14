@@ -64,7 +64,9 @@ export default {
       GameFacade.selectMove(step);
       if (this.winner) {
         this.isBtnDisabled = false;
+        return;
       }
+      this.isBtnDisabled = true;
     },
   },
   computed: {
