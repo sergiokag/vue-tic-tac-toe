@@ -5,9 +5,10 @@ import { ofType } from 'redux-observable';
 const gameEpic = action$ => action$.pipe(
     ofType('ON_PLAY'),
     tap((action) => {
+        console.log('EPICS!!!!!')
         console.log(action)
     }),
-    mapTo({ type: 'PLAY' })
+    mapTo({ type: '__', })
 );
 
 export default gameEpic;
