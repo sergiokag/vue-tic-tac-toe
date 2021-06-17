@@ -43,7 +43,8 @@ const initStore = () => {
             squares$$: state => state.history[state.stepNumber].squares,
             winner$$: state => state.winner,
             xIsNext$$: state => state.xIsNext,
-        }
+        },
+        devtools: true,
     });
 };
 

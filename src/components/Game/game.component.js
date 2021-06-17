@@ -21,7 +21,6 @@ export default {
     },
     data() {
         return {
-            stepNumber: 0,
             player1: null,
             player2: null,
             isBtnDisabled: true,
