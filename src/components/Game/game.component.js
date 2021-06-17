@@ -25,17 +25,15 @@ export default {
         actions = injectActions();
     },
     data() {
-        return {
-            player1: null,
-            player2: null,
-            isBtnDisabled: false,
-            ...mapState({
-                history: 'history',
-                winner: 'winner',
-                xIsNext: 'xIsNext',
-                stepNumber: 'stepNumber',
-            }),
-        };
+        return mapState({
+            history: state => state.history,
+            winner: state => state.winner,
+            xIsNext: state => state.xIsNext,
+            stepNumber: state => state.stepNumber,
+            player1: state => state.player1,
+            player2: state => state.player2,
+            isBtnDisabled: state => state.isBtnDisabled,
+        })
     },
     computed: {
         squares() {
@@ -67,25 +65,19 @@ export default {
     },
     methods: {
         onValueChange({ value, index }) {
-            // EPICS
-            // GameFacade.play({ value, index });
-            console.log({ value, index })
+            store.dispatch(actions.PLAY({ value, index }));
             if (this.winner || this.message === "Draw") {
                 this.isBtnDisabled = false;
             }
         },
         onGameRestart() {
             store.dispatch(actions.RESTART());
-
-            // TODO: move to state ??? 
             this.player1 = null;
             this.player2 = null;
             this.isBtnDisabled = true;
         },
         onSelectedMove(step) {
-            // EPICS
-            //GameFacade.selectMove(step);
-            console.log(step)
+            store.dispatch(actions.SELECT_MOVE(step));
             if (this.winner) {
                 this.isBtnDisabled = false;
                 return;
