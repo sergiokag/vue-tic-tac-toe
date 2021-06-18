@@ -71,8 +71,6 @@ export default {
         },
         onGameRestart() {
             store.dispatch(actions.RESTART());
-            this.player1 = null;
-            this.player2 = null;
         },
         onSelectedMove(step) {
             store.dispatch(actions.SELECT_MOVE(step));
