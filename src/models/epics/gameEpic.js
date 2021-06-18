@@ -1,4 +1,4 @@
-import { mapTo, tap } from 'rxjs/operators';
+import { tap, ignoreElements } from 'rxjs/operators';
 
 import { ofType } from 'redux-observable';
 
@@ -8,7 +8,7 @@ const gameEpic = action$ => action$.pipe(
         console.log('EPICS!!!!!')
         console.log(action)
     }),
-    mapTo({ type: '__', })
+    ignoreElements()
 );
 
 export default gameEpic;

@@ -32,7 +32,6 @@ export default {
             stepNumber: state => state.stepNumber,
             player1: state => state.player1,
             player2: state => state.player2,
-            isBtnDisabled: state => state.isBtnDisabled,
         })
     },
     computed: {
@@ -62,27 +61,21 @@ export default {
                     ? this.player2 || "Player 2"
                     : "";
         },
+        isBtnDisabled() {
+            return (this.message !== 'Draw' && !this.winner) || false;
+        }
     },
     methods: {
         onValueChange({ value, index }) {
             store.dispatch(actions.PLAY({ value, index }));
-            if (this.winner || this.message === "Draw") {
-                this.isBtnDisabled = false;
-            }
         },
         onGameRestart() {
             store.dispatch(actions.RESTART());
             this.player1 = null;
             this.player2 = null;
-            this.isBtnDisabled = true;
         },
         onSelectedMove(step) {
             store.dispatch(actions.SELECT_MOVE(step));
-            if (this.winner) {
-                this.isBtnDisabled = false;
-                return;
-            }
-            this.isBtnDisabled = true;
         },
     },
 };

@@ -11,7 +11,6 @@ const initialState = {
     xIsNext: true,
     player1: null,
     player2: null,
-    isBtnDisabled: true,
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
