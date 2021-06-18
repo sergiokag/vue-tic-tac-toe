@@ -55,6 +55,24 @@ export const reducer = (state = initialState, { type, payload }) => {
             return {
                 ...initialState,
             }
+        case 'player1':
+            return {
+                ...state,
+                player1: payload
+            }
+        case 'player2':
+            return {
+                ...state,
+                player2: payload
+            }
+        case 'SET_PLAYER_NAMES': {
+            const { player1, player2 } = payload;
+            return {
+                ...state,
+                player1: player1 !== state.player1 ? player1 : state.player1,
+                player2: player2 !== state.player2 ? player2 : state.player2,
+            };
+        }
         default:
             return state;
     }

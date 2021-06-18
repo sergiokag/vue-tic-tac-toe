@@ -3,12 +3,7 @@
     <label :for="id">
       <slot>Player</slot>
     </label>
-    <input
-      type="text"
-      :id="id"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-    />
+    <input type="text" :id="id" :value="inputValue" @input="updateInputValue" />
   </div>
 </template>
 
@@ -16,9 +11,17 @@
 export default {
   name: "Player",
   props: {
-    modelValue: String,
+    inputValue: String,
     id: {
       value: String,
+    },
+  },
+  methods: {
+    updateInputValue($event) {
+      this.$emit("updateValue", {
+        playerId: this.id,
+        value: $event.target.value,
+      });
     },
   },
 };
