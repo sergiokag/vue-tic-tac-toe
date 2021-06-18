@@ -45,25 +45,22 @@ export const reducer = (state = initialState, { type, payload }) => {
                 winner
             };
         }
-        case 'SELECT_MOVE':
+        case 'SELECT_MOVE': {
+            const _history = state.history.slice(0, payload + 1);
+            const _current = _history[_history.length - 1];
+            const _squares = _current.squares.slice();
+            const winner = GameProcessor.calculateWinner(_squares);
+
             return {
                 ...state,
                 stepNumber: payload,
                 xIsNext: payload % 2 === 0,
+                winner,
             }
+        }
         case 'RESTART':
             return {
                 ...initialState,
-            }
-        case 'player1':
-            return {
-                ...state,
-                player1: payload
-            }
-        case 'player2':
-            return {
-                ...state,
-                player2: payload
             }
         case 'SET_PLAYER_NAMES': {
             const { player1, player2 } = payload;

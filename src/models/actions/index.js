@@ -6,14 +6,6 @@ export const PLAY = (payload) => {
 };
 PLAY.type = 'PLAY';
 
-export const ON_PLAY = (payload) => {
-    return {
-        type: 'ON_PLAY',
-        payload
-    }
-};
-ON_PLAY.type = 'ON_PLAY';
-
 export const SET_WINNER = (payload) => {
     return {
         type: 'SET_WINNER',
@@ -45,19 +37,3 @@ export const SET_PLAYER_NAMES = payload => {
     }
 };
 SET_PLAYER_NAMES.type = 'SET_PLAYER_NAMES';
-
-export const player1 = (payload) => {
-    return {
-        type: 'player1',
-        payload
-    }
-};
-player1.type = 'player1';
-
-export const player2 = (payload) => {
-    return {
-        type: 'player2',
-        payload
-    }
-};
-player2.type = 'player2';
