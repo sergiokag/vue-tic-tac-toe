@@ -6,14 +6,6 @@ export const PLAY = (payload) => {
 };
 PLAY.type = 'PLAY';
 
-export const SET_WINNER = (payload) => {
-    return {
-        type: 'SET_WINNER',
-        payload
-    }
-};
-SET_WINNER.type = 'SET_WINNER';
-
 export const SELECT_MOVE = (payload) => {
     return {
         type: 'SELECT_MOVE',
