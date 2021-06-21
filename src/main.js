@@ -4,7 +4,8 @@ import { provideStore } from 'redux-vuex';
 import { emitter as $bus } from './emitter.js';
 
 import { store } from './models/store';
-import * as actions from './models/actions';
+import { actions as ticTacToeActions } from './models/tic-tac-toe';
+import { actions as playersActions } from './models/players';
 
 const app = createApp(App);
 
@@ -13,7 +14,10 @@ app.config.globalProperties.$bus = $bus;
 provideStore({
     app,
     store,
-    actions
+    actions: {
+        ...playersActions,
+        ...ticTacToeActions,
+    }
 });
 
 app.mount('#app');

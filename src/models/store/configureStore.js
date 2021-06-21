@@ -1,8 +1,13 @@
-import { applyMiddleware, createStore } from 'redux'
-import { epicMiddleware, epics } from '../epics';
-import { reducers } from '../reducers';
+import { combineReducers, createStore } from 'redux';
 
-const store = createStore(reducers, applyMiddleware(epicMiddleware));
-epicMiddleware.run(epics);
+import { reducer as ticTacToeReducer } from '../tic-tac-toe/reducer';
+import { reducer as playersReducer } from '../players/reducer';
+
+const reducers = combineReducers({
+    ticTacToe: ticTacToeReducer,
+    players: playersReducer,
+});
+
+const store = createStore(reducers);
 
 export default store;

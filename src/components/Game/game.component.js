@@ -26,10 +26,10 @@ export default {
     },
     data() {
         return mapState({
-            history: state => state.game.history,
-            winner: state => state.game.winner,
-            xIsNext: state => state.game.xIsNext,
-            stepNumber: state => state.game.stepNumber,
+            history: state => state.ticTacToe.history,
+            winner: state => state.ticTacToe.winner,
+            xIsNext: state => state.ticTacToe.xIsNext,
+            stepNumber: state => state.ticTacToe.stepNumber,
             player1: state => state.players.player1,
             player2: state => state.players.player2,
         })
