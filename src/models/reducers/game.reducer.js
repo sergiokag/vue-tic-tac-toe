@@ -9,8 +9,6 @@ const initialState = {
     winner: null,
     stepNumber: 0,
     xIsNext: true,
-    player1: null,
-    player2: null,
 };
 
 export const gameReducer = (state = initialState, { type, payload }) => {
@@ -62,14 +60,6 @@ export const gameReducer = (state = initialState, { type, payload }) => {
             return {
                 ...initialState,
             }
-        // case 'SET_PLAYER_NAMES': {
-        //     const { player1, player2 } = payload;
-        //     return {
-        //         ...state,
-        //         player1: player1 !== state.player1 ? player1 : state.player1,
-        //         player2: player2 !== state.player2 ? player2 : state.player2,
-        //     };
-        // }
         default:
             return state;
     }
