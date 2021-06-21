@@ -1,4 +1,3 @@
-import store from '../store';
 import { PLAY, RESTART, SELECT_MOVE } from "./actions";
 
 const useTicTacToe = ({ dispatch }) => {
@@ -18,4 +17,4 @@ const useTicTacToe = ({ dispatch }) => {
     };
 };
 
-export default useTicTacToe(store);
+export default useTicTacToe;

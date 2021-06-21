@@ -8,7 +8,11 @@ import Player from "../Player/Player";
 import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
-import useGameModel from "../../models/game"
+import { injectStore } from 'redux-vuex';
+
+import useGameModel from "../../models/game";
+
+let GameModel;
 
 export default {
     name: "Game",
@@ -20,6 +24,8 @@ export default {
         Moves,
     },
     mounted() {
+        const store = injectStore();
+        GameModel = useGameModel(store);
         this.$bus.on("value-changed", (data) => this.onValueChange(data));
     },
     data() {
@@ -65,16 +71,16 @@ export default {
     },
     methods: {
         onValueChange({ value, index }) {
-            useGameModel.makeMove({ value, index });
+            GameModel.makeMove({ value, index });
         },
         onGameRestart() {
-            useGameModel.reset();
+            GameModel.reset();
         },
         onSelectedMove(step) {
-            useGameModel.selectHistoryStep(step);
+            GameModel.selectHistoryStep(step);
         },
         onUpdateValue({ playerId, value }) {
-            useGameModel.setPlayerName({ playerId, value });
+            GameModel.setPlayerName({ playerId, value });
         }
     },
 };

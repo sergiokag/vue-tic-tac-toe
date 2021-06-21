@@ -1,9 +1,9 @@
-import { useTicTacToeModel } from 'models/tic-tac-toe';
-import { usePlayersModel } from 'models/players';
+import { useTicTacToeModel } from '../tic-tac-toe';
+import { usePlayersModel } from '../players';
 
-const useGameModel = () => {
-    const { makeMove, resetGame, selectMove } = useTicTacToeModel();
-    const { setPlayer1, setPlayer2 } = usePlayersModel();
+const useGameModel = store => {
+    const { makeMove, resetGame, selectMove } = useTicTacToeModel(store);
+    const { setPlayer1, setPlayer2, resetPlayers } = usePlayersModel(store);
 
     const makeGameMove = squareIndex => {
         makeMove(squareIndex);
@@ -36,4 +36,4 @@ const useGameModel = () => {
     };
 };
 
-export default useGameModel();
+export default useGameModel;
