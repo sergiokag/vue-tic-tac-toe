@@ -1,5 +1,5 @@
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
-import gameEpic from './gameEpic';
+import gameEpic from './game.epic';
 
 export const epics = combineEpics(
     gameEpic

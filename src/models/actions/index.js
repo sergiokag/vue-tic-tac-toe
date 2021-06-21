@@ -1,31 +1,4 @@
-export const PLAY = (payload) => {
-    return {
-        type: 'PLAY',
-        payload
-    }
-};
-PLAY.type = 'PLAY';
+import { PLAY, SELECT_MOVE, RESTART } from "./game.actions";
+import { SET_PLAYER_NAMES } from "./player.actions";
 
-export const SELECT_MOVE = (payload) => {
-    return {
-        type: 'SELECT_MOVE',
-        payload
-    }
-};
-SELECT_MOVE.type = 'SELECT_MOVE';
-
-export const RESTART = () => {
-    return {
-        type: 'RESTART',
-        payload: null
-    }
-};
-RESTART.type = 'RESTART';
-
-export const SET_PLAYER_NAMES = payload => {
-    return {
-        type: 'SET_PLAYER_NAMES',
-        payload
-    }
-};
-SET_PLAYER_NAMES.type = 'SET_PLAYER_NAMES';
+export { PLAY, SELECT_MOVE, RESTART, SET_PLAYER_NAMES };
