@@ -1,3 +1,6 @@
+// core
+import { mapState } from 'redux-vuex';
+
 // components
 import Board from "../Board/Board";
 import Button from "../Button/Button";
@@ -5,10 +8,7 @@ import Player from "../Player/Player";
 import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
-import { injectStore, injectActions, mapState } from 'redux-vuex';
-
-let store = null;
-let actions = null;
+import useGameModel from "../../models/game"
 
 export default {
     name: "Game",
@@ -21,8 +21,6 @@ export default {
     },
     mounted() {
         this.$bus.on("value-changed", (data) => this.onValueChange(data));
-        store = injectStore();
-        actions = injectActions();
     },
     data() {
         return mapState({
@@ -67,17 +65,16 @@ export default {
     },
     methods: {
         onValueChange({ value, index }) {
-            store.dispatch(actions.PLAY({ value, index }));
+            useGameModel.makeMove({ value, index });
         },
         onGameRestart() {
-            store.dispatch(actions.RESTART());
+            useGameModel.reset();
         },
         onSelectedMove(step) {
-            store.dispatch(actions.SELECT_MOVE(step));
+            useGameModel.selectHistoryStep(step);
         },
         onUpdateValue({ playerId, value }) {
-            const player = `SET_${playerId.toUpperCase()}`;
-            store.dispatch(actions[player](value));
+            useGameModel.setPlayerName({ playerId, value });
         }
     },
 };
