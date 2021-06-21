@@ -1,5 +1,4 @@
-import { PLAY, SELECT_MOVE, RESTART } from '../tic-tac-toe/actions'
+import * as actions from '../tic-tac-toe/actions';
+import reducer from './reducer';
 
-export const actions = {
-    PLAY, SELECT_MOVE, RESTART
-}
+export { actions, reducer };

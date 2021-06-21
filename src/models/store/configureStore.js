@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 
-import { reducer as ticTacToeReducer } from '../tic-tac-toe/reducer';
-import { reducer as playersReducer } from '../players/reducer';
+import { reducer as ticTacToeReducer } from '../tic-tac-toe';
+import { reducer as playersReducer } from '../players';
 
 const reducers = combineReducers({
     ticTacToe: ticTacToeReducer,

@@ -1,6 +1,4 @@
-import { SET_PLAYER1, SET_PLAYER2 } from "./actions";
+import * as actions from "./actions";
+import reducer from './reducer';
 
-export const actions = {
-    SET_PLAYER1,
-    SET_PLAYER2,
-};
+export { actions, reducer };

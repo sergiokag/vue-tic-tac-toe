@@ -11,7 +11,7 @@ const initialState = {
     xIsNext: true,
 };
 
-export const reducer = (state = initialState, { type, payload }) => {
+const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case 'PLAY': {
             const { value, index } = payload;
@@ -64,3 +64,5 @@ export const reducer = (state = initialState, { type, payload }) => {
             return state;
     }
 };
+
+export default reducer;
