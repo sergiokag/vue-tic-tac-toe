@@ -3,13 +3,19 @@
     <label :for="id">
       <slot>Player</slot>
     </label>
-    <input type="text" :id="id" :value="inputValue" @input="updateInputValue" />
+    <input
+      type="text"
+      :id="id"
+      :value="inputValue"
+      @input="onUpdateInputValue"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: "Player",
+  emits: ["updateValue"],
   props: {
     inputValue: String,
     id: {
@@ -17,7 +23,7 @@ export default {
     },
   },
   methods: {
-    updateInputValue($event) {
+    onUpdateInputValue($event) {
       this.$emit("updateValue", {
         playerId: this.id,
         value: $event.target.value,
