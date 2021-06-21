@@ -15,6 +15,10 @@ export const playersReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 player2: payload !== state.player2 ? payload : state.player2,
             };
+        case 'RESET_PLAYERS':
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

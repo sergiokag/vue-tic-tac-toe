@@ -71,6 +71,7 @@ export default {
         },
         onGameRestart() {
             store.dispatch(actions.RESTART());
+            store.dispatch(actions.RESET_PLAYERS());
         },
         onSelectedMove(step) {
             store.dispatch(actions.SELECT_MOVE(step));
