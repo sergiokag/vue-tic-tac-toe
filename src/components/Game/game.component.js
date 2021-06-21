@@ -76,12 +76,8 @@ export default {
             store.dispatch(actions.SELECT_MOVE(step));
         },
         onUpdateValue({ playerId, value }) {
-            const payload = {
-                player1: this.player1,
-                player2: this.player2
-            };
-            payload[playerId] = value;
-            store.dispatch(actions.SET_PLAYER_NAMES(payload));
+            const player = `SET_${playerId.toUpperCase()}`;
+            store.dispatch(actions[player](value));
         }
     },
 };
