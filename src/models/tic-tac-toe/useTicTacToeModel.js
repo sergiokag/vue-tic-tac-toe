@@ -1,4 +1,4 @@
-import { PLAY, RESTART, SELECT_MOVE } from "./actions";
+import { PLAY, RESTART, SELECT_MOVE, ON_PLAY } from "./actions";
 
 const useTicTacToe = ({ dispatch }) => {
 
@@ -12,8 +12,12 @@ const useTicTacToe = ({ dispatch }) => {
         dispatch(SELECT_MOVE(payload));
     };
 
+    const onPlay = payload => {
+        dispatch(ON_PLAY(payload));
+    };
+
     return {
-        makeMove, resetGame, selectMove
+        makeMove, resetGame, selectMove, onPlay
     };
 };
 

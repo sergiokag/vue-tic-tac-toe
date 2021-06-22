@@ -2,7 +2,7 @@ import { useTicTacToeModel } from '../tic-tac-toe';
 import { usePlayersModel } from '../players';
 
 const useGameModel = store => {
-    const { makeMove, resetGame, selectMove } = useTicTacToeModel(store);
+    const { makeMove, resetGame, selectMove, onPlay } = useTicTacToeModel(store);
     const { setPlayer1, setPlayer2, resetPlayers } = usePlayersModel(store);
 
     const makeGameMove = squareIndex => {
@@ -33,6 +33,7 @@ const useGameModel = store => {
         selectHistoryStep,
         reset,
         setPlayerName,
+        onPlay,
     };
 };
 
