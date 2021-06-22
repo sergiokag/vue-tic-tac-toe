@@ -1,11 +1,12 @@
 import { ofType } from 'redux-observable';
-import { ignoreElements, tap } from 'rxjs/operators';
+import { ignoreElements, tap, withLatestFrom } from 'rxjs/operators';
 
 import * as actions from './actions';
 
 export const ticTacToePlayEpic = (action$, state$) =>
     action$.pipe(
         ofType(actions.ON_PLAY.type),
-        tap(() => { console.log({ action$, state$ }) }),
+        withLatestFrom(state$),
+        tap((value) => { console.log({ value }) }),
         ignoreElements()
     );
