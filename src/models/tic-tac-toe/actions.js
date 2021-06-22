@@ -14,7 +14,6 @@ export const ON_PLAY = (payload) => {
 };
 ON_PLAY.type = 'ON_PLAY';
 
-
 export const SELECT_MOVE = (payload) => {
     return {
         type: 'SELECT_MOVE',

@@ -15,33 +15,12 @@ const initialState = {
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case actions.PLAY.type: {
-            const { value, index } = payload;
-
-            if (value || state.winner) {
-                return state;
-            }
-
-            const _history = state.history.slice(0, state.stepNumber + 1);
-            const _current = _history[_history.length - 1];
-            const _squares = _current.squares.slice();
-
-            _squares[index] = state.xIsNext ? "X" : "O";
-
-            const _newHistory = [
-                ..._history,
-                {
-                    squares: _squares,
-                },
-            ];
-            // Checking for winner
-            const winner = GameProcessor.calculateWinner(_squares);
-
             return {
                 ...state,
-                history: _newHistory,
-                xIsNext: !state.xIsNext,
-                stepNumber: _newHistory.length - 1,
-                winner
+                history: payload.history,
+                xIsNext: payload.xIsNext,
+                stepNumber: payload.history.length - 1,
+                winner: payload.winner,
             };
         }
         case actions.SELECT_MOVE.type: {

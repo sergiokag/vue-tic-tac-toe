@@ -71,7 +71,6 @@ export default {
     },
     methods: {
         onValueChange({ value, index }) {
-            GameModel.makeMove({ value, index });
             GameModel.onPlay({ value, index });
         },
         onGameRestart() {
