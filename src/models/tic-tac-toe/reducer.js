@@ -1,4 +1,5 @@
 import GameProcessor from '../../utils/GameProcessor';
+import * as actions from './actions';
 
 const initialState = {
     history: [
@@ -13,7 +14,7 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case 'PLAY': {
+        case actions.PLAY.type: {
             const { value, index } = payload;
 
             if (value || state.winner) {
@@ -43,7 +44,7 @@ const reducer = (state = initialState, { type, payload }) => {
                 winner
             };
         }
-        case 'SELECT_MOVE': {
+        case actions.SELECT_MOVE.type: {
             const _history = state.history.slice(0, payload + 1);
             const _current = _history[_history.length - 1];
             const _squares = _current.squares.slice();
@@ -56,7 +57,7 @@ const reducer = (state = initialState, { type, payload }) => {
                 winner,
             }
         }
-        case 'RESTART':
+        case actions.RESTART.type:
             return {
                 ...initialState,
             }

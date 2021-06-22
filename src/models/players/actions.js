@@ -20,4 +20,3 @@ export const RESET_PLAYERS = () => {
     }
 };
 RESET_PLAYERS.type = 'RESET_PLAYERS';
-
