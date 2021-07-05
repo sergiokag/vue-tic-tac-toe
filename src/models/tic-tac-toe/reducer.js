@@ -14,7 +14,7 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case actions.PLAY.type: {
+        case actions.play.type: {
             return {
                 ...state,
                 history: payload.history,
@@ -23,7 +23,7 @@ const reducer = (state = initialState, { type, payload }) => {
                 winner: payload.winner,
             };
         }
-        case actions.SELECT_MOVE.type: {
+        case actions.selectMove.type: {
             const _history = state.history.slice(0, payload + 1);
             const _current = _history[_history.length - 1];
             const _squares = _current.squares.slice();
@@ -36,7 +36,7 @@ const reducer = (state = initialState, { type, payload }) => {
                 winner,
             }
         }
-        case actions.RESTART.type:
+        case actions.restart.type:
             return {
                 ...initialState,
             }

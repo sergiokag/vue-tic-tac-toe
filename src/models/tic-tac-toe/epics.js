@@ -7,7 +7,7 @@ import GameProcessor from '../../utils/GameProcessor';
 
 export const ticTacToePlayEpic = (action$, state$) =>
     action$.pipe(
-        ofType(actions.ON_PLAY.type),
+        ofType(actions.onPlay.type),
         withLatestFrom(state$),
         map(([action, state]) => {
             const { value, index } = action.payload;
@@ -32,7 +32,7 @@ export const ticTacToePlayEpic = (action$, state$) =>
 
             const _winner = GameProcessor.calculateWinner(_squares);
 
-            return actions.PLAY({
+            return actions.play({
                 history: _newHistory,
                 xIsNext: !xIsNext,
                 stepNumber: _newHistory.length - 1,

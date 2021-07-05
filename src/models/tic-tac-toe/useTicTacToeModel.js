@@ -1,19 +1,19 @@
-import { PLAY, RESTART, SELECT_MOVE, ON_PLAY } from "./actions";
+import { play, restart, selectMove as selectStep, onPlay as onPlayAction } from "./actions";
 
 const useTicTacToe = ({ dispatch }) => {
 
     const makeMove = payload => {
-        dispatch(PLAY(payload));
+        dispatch(play(payload));
     };
     const resetGame = () => {
-        dispatch(RESTART());
+        dispatch(restart());
     };
     const selectMove = payload => {
-        dispatch(SELECT_MOVE(payload));
+        dispatch(selectStep(payload));
     };
 
     const onPlay = payload => {
-        dispatch(ON_PLAY(payload));
+        dispatch(onPlayAction(payload));
     };
 
     return {
