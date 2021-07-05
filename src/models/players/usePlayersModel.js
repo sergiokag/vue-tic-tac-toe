@@ -1,17 +1,21 @@
-import { SET_PLAYER1, SET_PLAYER2, RESET_PLAYERS } from "./actions";
+import {
+    setPlayer1 as setPlayerName1,
+    setPlayer2 as setPlayerName2,
+    resetPlayers as resetPlayersNames
+} from "./actions";
 
 const usePlayersModel = ({ dispatch }) => {
 
     const setPlayer1 = name => {
-        dispatch(SET_PLAYER1(name));
+        dispatch(setPlayerName1(name));
     };
 
     const setPlayer2 = name => {
-        dispatch(SET_PLAYER2(name));
+        dispatch(setPlayerName2(name));
     };
 
     const resetPlayers = () => {
-        dispatch(RESET_PLAYERS());
+        dispatch(resetPlayersNames());
     };
 
     return {
