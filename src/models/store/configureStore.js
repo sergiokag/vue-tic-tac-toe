@@ -4,6 +4,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { reducer as ticTacToeReducer, ticTacToePlayEpic } from '../tic-tac-toe';
 import { reducer as playersReducer } from '../players';
+import { loadState } from '../../utils/persistState';
+
+const preloadedState = loadState();
 
 const reducers = combineReducers({
     ticTacToe: ticTacToeReducer,
@@ -19,7 +22,7 @@ const epicEnhancer = applyMiddleware(epicMiddleware);
 const enhancers = [epicEnhancer];
 const composedEnhancers = composeWithDevTools(...enhancers);
 
-const store = createStore(reducers, composedEnhancers);
+const store = createStore(reducers, preloadedState, composedEnhancers);
 epicMiddleware.run(epics);
 
 export default store;

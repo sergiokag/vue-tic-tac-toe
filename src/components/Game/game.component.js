@@ -81,6 +81,9 @@ export default {
         },
         onUpdateValue({ playerId, value }) {
             GameModel.setPlayerName({ playerId, value });
-        }
+        },
+        onGameSave() {
+            GameModel.saveGame();
+        },
     },
 };

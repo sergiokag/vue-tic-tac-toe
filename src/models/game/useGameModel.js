@@ -1,5 +1,6 @@
 import { useTicTacToeModel } from '../tic-tac-toe';
 import { usePlayersModel } from '../players';
+import { saveState } from '../../utils/persistState';
 
 const useGameModel = store => {
     const { makeMove, resetGame, selectMove, onPlay } = useTicTacToeModel(store);
@@ -28,12 +29,17 @@ const useGameModel = store => {
         }
     };
 
+    const saveGame = () => {
+        saveState(store.getState());
+    };
+
     return {
         makeMove: makeGameMove,
         selectHistoryStep,
         reset,
         setPlayerName,
         onPlay,
+        saveGame,
     };
 };
 
