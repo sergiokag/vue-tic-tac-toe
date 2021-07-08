@@ -1,5 +1,5 @@
 // core
-import { onMounted, getCurrentInstance } from 'vue';
+import { onMounted, getCurrentInstance, toRefs } from 'vue';
 import { mapState } from 'redux-vuex';
 
 // components
@@ -31,18 +31,25 @@ export default {
 
             const compInstance = getCurrentInstance();
             const { $bus } = compInstance.appContext.config.globalProperties;
-            $bus.on("value-changed", (data) => this.onValueChange(data));
+            $bus.on("value-changed", (data) => onValueChange(data));
         });
-    },
-    data() {
-        return mapState({
-            history: state => state.ticTacToe.history,
-            winner: state => state.ticTacToe.winner,
-            xIsNext: state => state.ticTacToe.xIsNext,
-            stepNumber: state => state.ticTacToe.stepNumber,
-            player1: state => state.players.player1,
-            player2: state => state.players.player2,
-        })
+
+        // methods
+        const onValueChange = ({ value, index }) => {
+            GameModel.onPlay({ value, index });
+        };
+
+        return {
+            ...toRefs(mapState({
+                history: state => state.ticTacToe.history,
+                winner: state => state.ticTacToe.winner,
+                xIsNext: state => state.ticTacToe.xIsNext,
+                stepNumber: state => state.ticTacToe.stepNumber,
+                player1: state => state.players.player1,
+                player2: state => state.players.player2,
+            })),
+            onValueChange,
+        };
     },
     computed: {
         squares() {
@@ -76,9 +83,6 @@ export default {
         }
     },
     methods: {
-        onValueChange({ value, index }) {
-            GameModel.onPlay({ value, index });
-        },
         onGameRestart() {
             GameModel.reset();
         },
