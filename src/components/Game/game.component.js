@@ -9,11 +9,8 @@ import Player from "../Player/Player";
 import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
-import { injectStore } from 'redux-vuex';
-
-import useGameModel from "../../models/game";
-
-let GameModel;
+// hooks
+import { useGame } from '../../hooks/useGame';
 
 export default {
     name: "Game",
@@ -26,45 +23,13 @@ export default {
     },
     setup() {
         onMounted(() => {
-            const store = injectStore();
-            GameModel = useGameModel(store);
-
             const compInstance = getCurrentInstance();
             const { $bus } = compInstance.appContext.config.globalProperties;
             $bus.on("value-changed", (data) => onValueChange(data));
         });
+        const { mapStateObj, onValueChange, onGameRestart, onSelectedMove, onUpdateValue, onGameSave, } = useGame();
+        const stateObj = mapState(mapStateObj);
 
-        const stateObj = mapState({
-            history: state => state.ticTacToe.history,
-            winner: state => state.ticTacToe.winner,
-            xIsNext: state => state.ticTacToe.xIsNext,
-            stepNumber: state => state.ticTacToe.stepNumber,
-            player1: state => state.players.player1,
-            player2: state => state.players.player2,
-        });
-
-        // methods
-        const onValueChange = ({ value, index }) => {
-            GameModel.onPlay({ value, index });
-        };
-
-        const onGameRestart = () => {
-            GameModel.reset();
-        };
-
-        const onSelectedMove = (step) => {
-            GameModel.selectHistoryStep(step);
-        };
-
-        const onUpdateValue = ({ playerId, value }) => {
-            GameModel.setPlayerName({ playerId, value });
-        };
-
-        const onGameSave = () => {
-            GameModel.saveGame();
-        };
-
-        // computed
         const squares = computed(() => {
             const history = stateObj.history.slice(0, stateObj.stepNumber + 1);
             const current = history[history.length - 1];
