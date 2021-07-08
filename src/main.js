@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { provideStore } from 'redux-vuex';
-import { emitter as $bus } from './emitter.js';
+import { emitter as $bus } from './utils/emitter';
 
 import { store } from './models/store';
 import { actions as ticTacToeActions } from './models/tic-tac-toe';

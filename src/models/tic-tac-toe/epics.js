@@ -48,8 +48,6 @@ export const ticTacToeStepEpic = (action$, state$) => action$.pipe(
 
         const { payload } = action;
 
-        console.log({ action, state })
-
         const _history = state.ticTacToe.history.slice(0, payload + 1);
         const _current = _history[_history.length - 1];
         const _squares = _current.squares.slice();
