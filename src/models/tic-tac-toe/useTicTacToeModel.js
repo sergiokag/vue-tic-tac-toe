@@ -1,4 +1,4 @@
-import { play, restart, selectMove as selectStep, onPlay as onPlayAction } from "./actions";
+import { play, restart, selectMove as selectStep, onPlay as onPlayAction, onSelectMove as onSelectStep } from "./actions";
 
 const useTicTacToe = ({ dispatch }) => {
 
@@ -11,13 +11,16 @@ const useTicTacToe = ({ dispatch }) => {
     const selectMove = payload => {
         dispatch(selectStep(payload));
     };
+    const onSelectMove = payload => {
+        dispatch(onSelectStep(payload));
+    };
 
     const onPlay = payload => {
         dispatch(onPlayAction(payload));
     };
 
     return {
-        makeMove, resetGame, selectMove, onPlay
+        makeMove, resetGame, selectMove, onPlay, onSelectMove
     };
 };
 

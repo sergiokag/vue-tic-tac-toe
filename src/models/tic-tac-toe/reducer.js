@@ -1,4 +1,3 @@
-import GameProcessor from '../../utils/GameProcessor';
 import * as actions from './actions';
 
 const initialState = {
@@ -24,17 +23,12 @@ const reducer = (state = initialState, { type, payload }) => {
             };
         }
         case actions.selectMove.type: {
-            const _history = state.history.slice(0, payload + 1);
-            const _current = _history[_history.length - 1];
-            const _squares = _current.squares.slice();
-            const winner = GameProcessor.calculateWinner(_squares);
-
             return {
                 ...state,
-                stepNumber: payload,
-                xIsNext: payload % 2 === 0,
-                winner,
-            }
+                stepNumber: payload.stepNumber,
+                xIsNext: payload.stepNumber % 2 === 0,
+                winner: payload.winner,
+            };
         }
         case actions.restart.type:
             return {

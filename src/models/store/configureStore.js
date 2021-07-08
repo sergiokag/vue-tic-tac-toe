@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { reducer as ticTacToeReducer, ticTacToePlayEpic } from '../tic-tac-toe';
+import { reducer as ticTacToeReducer, ticTacToePlayEpic, ticTacToeStepEpic } from '../tic-tac-toe';
 import { reducer as playersReducer } from '../players';
 import { loadState } from '../../utils/persistState';
 
@@ -15,6 +15,7 @@ const reducers = combineReducers({
 
 const epics = combineEpics(
     ticTacToePlayEpic,
+    ticTacToeStepEpic,
 );
 
 const epicMiddleware = createEpicMiddleware();

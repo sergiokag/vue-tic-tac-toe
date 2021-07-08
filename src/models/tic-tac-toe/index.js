@@ -1,6 +1,6 @@
 import * as actions from '../tic-tac-toe/actions';
 import reducer from './reducer';
 import useTicTacToeModel from './useTicTacToeModel';
-import { ticTacToePlayEpic } from './epics';
+import { ticTacToePlayEpic, ticTacToeStepEpic } from './epics';
 
-export { actions, reducer, useTicTacToeModel, ticTacToePlayEpic };
+export { actions, reducer, useTicTacToeModel, ticTacToePlayEpic, ticTacToeStepEpic };

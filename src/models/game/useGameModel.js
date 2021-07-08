@@ -3,7 +3,7 @@ import { usePlayersModel } from '../players';
 import { saveState } from '../../utils/persistState';
 
 const useGameModel = store => {
-    const { makeMove, resetGame, selectMove, onPlay } = useTicTacToeModel(store);
+    const { makeMove, resetGame, onSelectMove, onPlay } = useTicTacToeModel(store);
     const { setPlayer1, setPlayer2, resetPlayers } = usePlayersModel(store);
 
     const makeGameMove = squareIndex => {
@@ -16,7 +16,7 @@ const useGameModel = store => {
     };
 
     const selectHistoryStep = step => {
-        selectMove(step);
+        onSelectMove(step);
     };
 
     const setPlayerName = ({ playerId, value }) => {
