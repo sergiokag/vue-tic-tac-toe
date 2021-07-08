@@ -1,4 +1,5 @@
 // core
+import { onMounted, getCurrentInstance } from 'vue';
 import { mapState } from 'redux-vuex';
 
 // components
@@ -23,10 +24,15 @@ export default {
         Status,
         Moves,
     },
-    mounted() {
-        const store = injectStore();
-        GameModel = useGameModel(store);
-        this.$bus.on("value-changed", (data) => this.onValueChange(data));
+    setup() {
+        onMounted(() => {
+            const store = injectStore();
+            GameModel = useGameModel(store);
+
+            const compInstance = getCurrentInstance();
+            const { $bus } = compInstance.appContext.config.globalProperties;
+            $bus.on("value-changed", (data) => this.onValueChange(data));
+        });
     },
     data() {
         return mapState({
