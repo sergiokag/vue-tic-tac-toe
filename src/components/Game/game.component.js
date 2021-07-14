@@ -8,11 +8,8 @@ import Player from "../Player/Player";
 import Status from "../Status/Status";
 import Moves from "../Moves/Moves";
 
-import { injectStore } from 'redux-vuex';
-
-import useGameModel from "../../models/game";
-
-let GameModel;
+// Model
+import { GameModel } from '../../main';
 
 export default {
     name: "Game",
@@ -24,8 +21,6 @@ export default {
         Moves,
     },
     mounted() {
-        const store = injectStore();
-        GameModel = useGameModel(store);
         this.$bus.on("value-changed", (data) => this.onValueChange(data));
     },
     data() {

@@ -25,6 +25,7 @@ const reducer = (state = initialState, { type, payload }) => {
         case actions.selectMove.type: {
             return {
                 ...state,
+                // history: state.history.slice(0, payload.stepNumber + 1), TODO: New History impl
                 stepNumber: payload.stepNumber,
                 xIsNext: payload.stepNumber % 2 === 0,
                 winner: payload.winner,
